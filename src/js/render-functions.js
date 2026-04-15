@@ -15,11 +15,11 @@ export function createGallery(images) {
     .map(
       img => `
         <li class="gallery-item">
-          <a class="gallery-link" href=" ${img.largeImageURL}">
+          <a class="gallery-link" href="${img.largeImageURL}">
             <img
               class="gallery-image"
-              src=" ${img.webformatURL}"
-              alt=" ${img.tags}"
+              src="${img.webformatURL}"
+              alt="${img.tags}"
             />
           </a>
           <div class="info">

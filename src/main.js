@@ -17,6 +17,7 @@ const loadMoreBtn = document.querySelector('.load-more');
 let page = 1;
 let query = '';
 let totalHits = 0;
+const PER_PAGE = 15;
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
@@ -44,7 +45,7 @@ form.addEventListener('submit', async e => {
 
     createGallery(data.hits);
 
-    const totalPages = Math.ceil(totalHits / 15);
+    const totalPages = Math.ceil(totalHits / PER_PAGE);
 
     if (totalPages > 1) {
       showLoadMoreButton();
@@ -65,6 +66,7 @@ form.addEventListener('submit', async e => {
 
 loadMoreBtn.addEventListener('click', async () => {
   page += 1;
+  hideLoadMoreButton();
   showLoader();
 
   try {
@@ -72,11 +74,12 @@ loadMoreBtn.addEventListener('click', async () => {
 
     createGallery(data.hits);
 
-    const totalPages = Math.ceil(totalHits / 15);
+    const totalPages = Math.ceil(totalHits / PER_PAGE);
 
-    if (page >= totalPages) {
+    if (page < totalPages) {
+      showLoadMoreButton();
+    } else {
       hideLoadMoreButton();
-
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
       });
